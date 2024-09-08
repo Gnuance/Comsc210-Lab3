@@ -22,6 +22,7 @@ struct Restaurant
 };
 
 Restaurant CollectRestaurantInfo();
+void OutputRestaurantHeader();
 void OutputRestaurantInfo(const Restaurant &);
 
 int main()
@@ -30,6 +31,9 @@ int main()
     const string NAME[10] = {"Pascals", "Giovanni's", "Leopold's", "The Artemis", "Burrito Shaq", "55 Ethiopian", "The Pizza Joint", "Family Spaghetti", "Dumpling Town", "Sizzling Sushi"};
     // Fake addresses compliments of ChatGPT. Should've asked it to create the names also, but I had fun coming up with names
     const string ADDRESS[10] = {"123 Maple Street", "456 Oak Avenue", "789 Pine Road", "101 Birch Lane", "202 Cedar Blvd", "303 Elm Street", "404 Willow Way", "505 Cherry Circle", "606 Aspen Drive", "707 Walnut Terrace"};
+    // Spacing for output
+    const int SPACING_LARGE = 25;
+    const int SPACING_SMALL = 15;
     // Random number generators for creating data to populate vector of restaurants for testing
     random_device rd;
     mt19937 gen(rd());
@@ -40,6 +44,9 @@ int main()
     // Temp restaurant object
     Restaurant r;
     vector<Restaurant> Restaurants = {};
+
+    // Output header info to console
+    OutputRestaurantHeader();
 
     // Loop to populate restaurant data and vector
     for (size_t i = 0; i < 5; i++)
@@ -57,44 +64,58 @@ int main()
             r.acceptsReservations = true;
         }
 
-        Restaurants.push_back(r); // Output data after it's been created
-
+        Restaurants.push_back(r); // Add restaurant to vector
         OutputRestaurantInfo(r);
     }
 
-    Restaurants.push_back(CollectRestaurantInfo());
+    // Restaurants.push_back(CollectRestaurantInfo());
+
+    
+    // OutputRestaurantInfo(Restaurants.at(5));
 
     return 0;
 }
+
+// Output header for data
+void OutputRestaurantHeader()
+{
+    cout << left << setw(SPACING_LARGE) << "NAME" << setw(SPACING_LARGE) << "ADDRESS" << setw(SPACING_LARGE) << "YEAR ESTABLISHED" << setw(SPACING_LARGE) << "CAPACITY" << setw(SPACING_SMALL) << "ACCEPTS RESERVATIONS" 
+    << endl
+    << string(100, '_')
+    << endl;
+};
 
 // Output function to cout restaurant info in formatted form
 void OutputRestaurantInfo(const Restaurant & r)
 {
     string acceptingReservations = "";
 
-    cout << left << setw(25) << r.name << setw(25) << r.address << setw(6) << r.yearEstablished;
-    acceptingReservations = (r.acceptsReservations == 0) ? "No" : "Yes";
-    cout << left << setw(6) << acceptingReservations << endl;
+    cout << left << setw(SPACING_LARGE) << r.name << setw(SPACING_LARGE) << r.address << setw(SPACING_LARGE) << r.yearEstablished << setw(SPACING_SMALL) << r.seatingCapacity;
+    acceptingReservations = (r.acceptsReservations == 1) ? "Yes" : "No";
+    cout << left << setw(SPACING_LARGE) << acceptingReservations << endl;
 };
 
 // Collects retaurant information from user
 Restaurant CollectRestaurantInfo()
 {
     Restaurant r;
-    string acceptsRes = "";
+    string userInput = "";
 
     cout << "Please enter restaurant name: ";
     getline(cin, r.name);
     cout << "Please enter restaurant address: ";
     getline(cin, r.address);
     cout << "Please enter year established: ";
-    cin >> r.yearEstablished;
+    getline(cin, userInput);
+    r.yearEstablished = stoi(userInput);
     cout << "Please enter the seating capacity: ";
-    cin >> r.seatingCapacity;
+    getline(cin, userInput);
+    r.seatingCapacity = stoi(userInput);
     cout << "Does the restaurant accept reservations (Yes/No): ";
-    getline(cin, acceptsRes);
+    getline(cin, userInput);
+    cout << "";
 
-    r.acceptsReservations = (acceptsRes == "Yes") ? true : false;
+    r.acceptsReservations = (userInput == "Yes") ? true : false;
 
     return r;
 };
