@@ -21,6 +21,9 @@ struct Restaurant
     bool acceptsReservations;
 };
 
+Restaurant CollectRestaurantInfo();
+void OutputRestaurantInfo(const Restaurant &);
+
 int main()
 {
     // Array of testing data to be randomly assigned to restaurants
@@ -58,9 +61,21 @@ int main()
 
         OutputRestaurantInfo(r);
     }
-    
+
+    Restaurants.push_back(CollectRestaurantInfo());
+
     return 0;
 }
+
+// Output function to cout restaurant info in formatted form
+void OutputRestaurantInfo(const Restaurant & r)
+{
+    string acceptingReservations = "";
+
+    cout << left << setw(25) << r.name << setw(25) << r.address << setw(6) << r.yearEstablished;
+    acceptingReservations = (r.acceptsReservations == 0) ? "No" : "Yes";
+    cout << left << setw(6) << acceptingReservations << endl;
+};
 
 // Collects retaurant information from user
 Restaurant CollectRestaurantInfo()
@@ -69,22 +84,17 @@ Restaurant CollectRestaurantInfo()
     string acceptsRes = "";
 
     cout << "Please enter restaurant name: ";
-    cin >> r.name;
+    getline(cin, r.name);
     cout << "Please enter restaurant address: ";
-    cin >> r.address;
+    getline(cin, r.address);
     cout << "Please enter year established: ";
     cin >> r.yearEstablished;
     cout << "Please enter the seating capacity: ";
     cin >> r.seatingCapacity;
     cout << "Does the restaurant accept reservations (Yes/No): ";
-    cin >> acceptsRes;
+    getline(cin, acceptsRes);
 
     r.acceptsReservations = (acceptsRes == "Yes") ? true : false;
 
     return r;
-};
-
-void OutputRestaurantInfo(Restaurant r)
-{
-    cout << setw(25) << r.name << r.address << r.yearEstablished << r.acceptsReservations;
 };
