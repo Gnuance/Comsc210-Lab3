@@ -24,6 +24,9 @@ struct Restaurant
 int main()
 {
     random_device rd;
+    string name[10] = {"Pascals", "Giovanni's", "Leopold's", "The Artemis", "Burrito Shaq", "55 Ethiopian", "The Pizza Joint", "Family Spaghetti", "Dumpling Town", "Sizzling Sushi"};
+    string address[10] = {"123 Maple Street", "456 Oak Avenue", "789 Pine Road", "101 Birch Lane", "202 Cedar Blvd", "303 Elm Street", "404 Willow Way", "505 Cherry Circle", "606 Aspen Drive", "707 Walnut Terrace"};
+
 
     return 0;
 }
@@ -50,8 +53,7 @@ Restaurant CollectRestaurantInfo()
     return r;
 };
 
-void OutputRestaurantInfo() {
-
-
-
+void OutputRestaurantInfo(Restaurant r)
+{
+    cout << setw(25) << r.name << r.address << r.yearEstablished << r.acceptsReservations;
 };
