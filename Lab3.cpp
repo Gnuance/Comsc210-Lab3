@@ -23,9 +23,20 @@ struct Restaurant
 
 int main()
 {
+    vector<Restaurant> Restaurants = {};
+    const string NAME[10] = {"Pascals", "Giovanni's", "Leopold's", "The Artemis", "Burrito Shaq", "55 Ethiopian", "The Pizza Joint", "Family Spaghetti", "Dumpling Town", "Sizzling Sushi"};
+    // Fake addresses compliments of ChatGPT. Should've asked it to create the names also, but I had fun coming up with names
+    const string ADDRESS[10] = {"123 Maple Street", "456 Oak Avenue", "789 Pine Road", "101 Birch Lane", "202 Cedar Blvd", "303 Elm Street", "404 Willow Way", "505 Cherry Circle", "606 Aspen Drive", "707 Walnut Terrace"};
+    Restaurant r;
     random_device rd;
-    string name[10] = {"Pascals", "Giovanni's", "Leopold's", "The Artemis", "Burrito Shaq", "55 Ethiopian", "The Pizza Joint", "Family Spaghetti", "Dumpling Town", "Sizzling Sushi"};
-    string address[10] = {"123 Maple Street", "456 Oak Avenue", "789 Pine Road", "101 Birch Lane", "202 Cedar Blvd", "303 Elm Street", "404 Willow Way", "505 Cherry Circle", "606 Aspen Drive", "707 Walnut Terrace"};
+    mt19937 gen(rd());
+
+    for (size_t i = 0; i < 5; i++)
+    {
+        r.name = NAME[5];
+        Restaurants.push_back(r);
+    }
+    
 
 
     return 0;
