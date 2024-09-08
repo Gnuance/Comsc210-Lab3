@@ -7,9 +7,7 @@ Lab3 (Restaurant) - Create a struct to hold restaurant data with 5 attributes. C
 #include <iomanip>
 #include <string>
 #include <vector>
-#include <sstream>
 #include <random>
-#include <format> // Format() and fmt() not working for me, so I'm using stringstream instead
 
 using namespace std;
 
@@ -34,6 +32,26 @@ int main()
 Restaurant CollectRestaurantInfo()
 {
     Restaurant r;
+    string acceptsRes = "";
+
+    cout << "Please enter restaurant name: ";
+    cin >> r.name;
+    cout << "Please enter restaurant address: ";
+    cin >> r.address;
+    cout << "Please enter year established: ";
+    cin >> r.yearEstablished;
+    cout << "Please enter the seating capacity: ";
+    cin >> r.seatingCapacity;
+    cout << "Does the restaurant accept reservations (Yes/No): ";
+    cin >> acceptsRes;
+
+    r.acceptsReservations = (acceptsRes == "Yes") ? true : false;
 
     return r;
+};
+
+void OutputRestaurantInfo() {
+
+
+
 };
