@@ -1,6 +1,6 @@
 /*
-Lab3 (Restaurant) - Create a struct to hold restaurant data with 5 attributes. Create a function to collect user input and return it to program
-  and a function that receives restaurant objects and outputs to consol.
+Lab3 (Restaurant) - Create a struct to hold restaurant data with >= 5 attributes. Create a function to collect user input and return it to program
+  and a function that receives restaurant objects and outputs to console.
 */
 
 #include <iostream>
@@ -9,7 +9,12 @@ Lab3 (Restaurant) - Create a struct to hold restaurant data with 5 attributes. C
 #include <vector>
 #include <random>
 
-using namespace std;
+using namespace std; // Cause I definitely ain't gonna std:: each statement
+
+// Spacing for output
+const int SPACING_EXTRA_LARGE = 40;
+const int SPACING_LARGE = 25;
+const int SPACING_SMALL = 15;
 
 // Restaurant struct
 struct Restaurant
@@ -21,9 +26,9 @@ struct Restaurant
     bool acceptsReservations;
 };
 
-Restaurant CollectRestaurantInfo();
-void OutputRestaurantHeader();
-void OutputRestaurantInfo(const Restaurant &);
+Restaurant CollectRestaurantInfo(); // Collects restaurant info from user
+void OutputRestaurantHeader(); // Outputs header for restaurant data
+void OutputRestaurantInfo(const Restaurant &); // Outputs individual restaurant data
 
 int main()
 {
@@ -31,9 +36,6 @@ int main()
     const string NAME[10] = {"Pascals", "Giovanni's", "Leopold's", "The Artemis", "Burrito Shaq", "55 Ethiopian", "The Pizza Joint", "Family Spaghetti", "Dumpling Town", "Sizzling Sushi"};
     // Fake addresses compliments of ChatGPT. Should've asked it to create the names also, but I had fun coming up with names
     const string ADDRESS[10] = {"123 Maple Street", "456 Oak Avenue", "789 Pine Road", "101 Birch Lane", "202 Cedar Blvd", "303 Elm Street", "404 Willow Way", "505 Cherry Circle", "606 Aspen Drive", "707 Walnut Terrace"};
-    // Spacing for output
-    const int SPACING_LARGE = 25;
-    const int SPACING_SMALL = 15;
     // Random number generators for creating data to populate vector of restaurants for testing
     random_device rd;
     mt19937 gen(rd());
@@ -45,8 +47,8 @@ int main()
     Restaurant r;
     vector<Restaurant> Restaurants = {};
 
-    // Output header info to console
-    OutputRestaurantHeader();
+    // Collect restaurant info from user and add to vector Restaurants
+    Restaurants.push_back(CollectRestaurantInfo());
 
     // Loop to populate restaurant data and vector
     for (size_t i = 0; i < 5; i++)
@@ -65,13 +67,16 @@ int main()
         }
 
         Restaurants.push_back(r); // Add restaurant to vector
-        OutputRestaurantInfo(r);
     }
 
-    // Restaurants.push_back(CollectRestaurantInfo());
+    // Output header info to console
+    OutputRestaurantHeader();
 
-    
-    // OutputRestaurantInfo(Restaurants.at(5));
+    // Output restaurant info to console
+    for (Restaurant r : Restaurants)
+    {
+        OutputRestaurantInfo(r);
+    }
 
     return 0;
 }
@@ -79,20 +84,21 @@ int main()
 // Output header for data
 void OutputRestaurantHeader()
 {
-    cout << left << setw(SPACING_LARGE) << "NAME" << setw(SPACING_LARGE) << "ADDRESS" << setw(SPACING_LARGE) << "YEAR ESTABLISHED" << setw(SPACING_LARGE) << "CAPACITY" << setw(SPACING_SMALL) << "ACCEPTS RESERVATIONS" 
-    << endl
-    << string(100, '_')
-    << endl;
+    cout << endl
+         << left << setw(SPACING_LARGE) << "NAME" << setw(SPACING_EXTRA_LARGE) << "ADDRESS" << setw(SPACING_LARGE) << "YEAR ESTABLISHED" << setw(SPACING_SMALL) << "CAPACITY" << setw(SPACING_LARGE) << "ACCEPTS RESERVATIONS"
+         << endl
+         << string(125, '-')
+         << endl;
 };
 
 // Output function to cout restaurant info in formatted form
-void OutputRestaurantInfo(const Restaurant & r)
+void OutputRestaurantInfo(const Restaurant &r)
 {
     string acceptingReservations = "";
 
-    cout << left << setw(SPACING_LARGE) << r.name << setw(SPACING_LARGE) << r.address << setw(SPACING_LARGE) << r.yearEstablished << setw(SPACING_SMALL) << r.seatingCapacity;
+    cout << left << setw(SPACING_LARGE) << r.name << setw(SPACING_EXTRA_LARGE) << r.address << setw(SPACING_LARGE) << r.yearEstablished << setw(SPACING_SMALL) << r.seatingCapacity;
     acceptingReservations = (r.acceptsReservations == 1) ? "Yes" : "No";
-    cout << left << setw(SPACING_LARGE) << acceptingReservations << endl;
+    cout << setw(SPACING_LARGE) << acceptingReservations << endl;
 };
 
 // Collects retaurant information from user
